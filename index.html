@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <script src="comfy.min.js"></script>
+
+    <style>
+        .zero-opacity {
+            opacity: 0;
+        }
+        .divToFadeInAndOut {
+            opacity: 0;
+            animation-name: fade;
+            animation-duration: 2s;
+            animation-iteration-count: 1;
+        }
+
+        @keyframes fade {
+            0%,100% { opacity: 0 }
+            50% { opacity: 1 }
+        }
+    </style>
+  </head>
+  <div id="alert" class="zero-opacity">
+      <p>New Followers</p>
+      <p id="username" class=""></p>
+  </div>
+  <body>
+    <script type="text/javascript">
+      const delay = ms => new Promise(res => setTimeout(res, ms));
+
+      ComfyJS.onCommand = async ( user, command, message, flags, extra ) => {
+        if( flags.broadcaster && command == "test" ) {
+          console.log( "!test was typed in chat" );
+          const alertDiv = document.querySelector('#alert')
+          alertDiv.classList.add("divToFadeInAndOut")
+          await delay(3000);
+          alertDiv.classList.remove("divToFadeInAndOut")
+        }
+      }
+      ComfyJS.Init( "itsdeke" );
+    </script>
+  </body>
+</html>
